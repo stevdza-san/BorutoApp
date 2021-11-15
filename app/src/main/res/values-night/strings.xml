@@ -2,4 +2,5 @@
 <resources>
     <string name="app_logo">App Logo</string>
     <string name="on_boarding_image">On Boarding Image</string>
+    <string name="search_icon">Search Icon</string>
 </resources>
