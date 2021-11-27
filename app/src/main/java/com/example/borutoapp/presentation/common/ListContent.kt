@@ -43,7 +43,7 @@ fun ListContent(
 ) {
     val result = handlePagingResult(heroes = heroes)
 
-    if(result){
+    if (result) {
         LazyColumn(
             contentPadding = PaddingValues(all = SMALL_PADDING),
             verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
