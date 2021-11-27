@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -16,7 +17,14 @@ import com.example.borutoapp.ui.theme.*
 
 @Composable
 fun ShimmerEffect() {
-
+    LazyColumn(
+        contentPadding = PaddingValues(all = SMALL_PADDING),
+        verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
+    ){
+        items(count = 2){
+            AnimatedShimmerItem()
+        }
+    }
 }
 
 @Composable
