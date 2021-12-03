@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import coil.annotation.ExperimentalCoilApi
-import com.example.borutoapp.presentation.details.DetailsScreen
+import com.example.borutoapp.presentation.screens.details.DetailsScreen
 import com.example.borutoapp.presentation.screens.home.HomeScreen
 import com.example.borutoapp.presentation.screens.search.SearchScreen
 import com.example.borutoapp.presentation.screens.splash.SplashScreen
