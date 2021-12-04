@@ -6,9 +6,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import coil.annotation.ExperimentalCoilApi
 
-@Composable
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
+@Composable
 fun DetailsScreen(
     navController: NavHostController,
     detailsViewModel: DetailsViewModel = hiltViewModel()
