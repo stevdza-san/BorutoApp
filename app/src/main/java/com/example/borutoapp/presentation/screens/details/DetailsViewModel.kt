@@ -1,8 +1,5 @@
 package com.example.borutoapp.presentation.screens.details
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +8,8 @@ import com.example.borutoapp.domain.use_cases.UseCases
 import com.example.borutoapp.util.Constants.DETAILS_ARGUMENT_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,8 +19,8 @@ class DetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _selectedHero: MutableState<Hero?> = mutableStateOf(null)
-    val selectedHero: State<Hero?> = _selectedHero
+    private val _selectedHero: MutableStateFlow<Hero?> = MutableStateFlow(null)
+    val selectedHero: StateFlow<Hero?> = _selectedHero
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

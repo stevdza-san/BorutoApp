@@ -8,4 +8,11 @@
     <string name="network_error_icon">Network Error Icon</string>
     <string name="close_icon">Close Icon</string>
     <string name="info_icon">Info Icon</string>
+    <string name="power">Power</string>
+    <string name="month">Month</string>
+    <string name="birthday">Birthday</string>
+    <string name="about">About</string>
+    <string name="family">Family</string>
+    <string name="abilities">Abilities</string>
+    <string name="nature_types">Nature Types</string>
 </resources>
