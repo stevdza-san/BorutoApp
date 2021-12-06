@@ -17,6 +17,10 @@ val ShimmerLightGray = Color(0xFFF1F1F1)
 val ShimmerMediumGray = Color(0xFFE3E3E3)
 val ShimmerDarkGray = Color(0xFF1D1D1D)
 
+val Colors.statusBarColor
+    @Composable
+    get() = if (isLight) Purple700 else Color.Black
+
 val Colors.welcomeScreenBackgroundColor
     @Composable
     get() = if (isLight) Color.White else Color.Black
