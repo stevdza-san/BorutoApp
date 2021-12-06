@@ -60,20 +60,3 @@ object PaletteGenerator {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
