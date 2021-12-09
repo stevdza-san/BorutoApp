@@ -261,17 +261,3 @@ fun EmptyStarPreview() {
         scaleFactor = 3f
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
