@@ -2,6 +2,7 @@ package com.example.borutoapp.data.remote
 
 import com.example.borutoapp.domain.model.ApiResponse
 import com.example.borutoapp.domain.model.Hero
+import java.io.IOException
 
 class FakeBorutoApi2 : BorutoApi {
 
@@ -395,7 +396,20 @@ class FakeBorutoApi2 : BorutoApi {
         )
     )
 
+    fun clearData() {
+        page1 = emptyList()
+    }
+
+    private var exception = false
+
+    fun addException() {
+        exception = true
+    }
+
     override suspend fun getAllHeroes(page: Int): ApiResponse {
+        if (exception) {
+            throw IOException()
+        }
         require(page in 1..5)
         return ApiResponse(
             success = true,
@@ -413,6 +427,9 @@ class FakeBorutoApi2 : BorutoApi {
     }
 
     private fun calculate(page: Int): Map<String, Int?> {
+        if (page1.isEmpty()) {
+            return mapOf("prevPage" to null, "nextPage" to null)
+        }
         var prevPage: Int? = page
         var nextPage: Int? = page
         if (page in 1..4) {
