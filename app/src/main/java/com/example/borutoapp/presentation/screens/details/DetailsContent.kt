@@ -2,7 +2,6 @@ package com.example.borutoapp.presentation.screens.details
 
 import android.graphics.Color.parseColor
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,13 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.borutoapp.R
 import com.example.borutoapp.domain.model.Hero
 import com.example.borutoapp.presentation.components.InfoBox
@@ -216,21 +217,21 @@ fun BackgroundContent(
     onCloseClicked: () -> Unit
 ) {
     val imageUrl = "$BASE_URL${heroImage}"
-    val painter = rememberImagePainter(imageUrl) {
-        error(R.drawable.ic_placeholder)
-    }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(backgroundColor)
     ) {
-        Image(
+        AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(fraction = imageFraction + MIN_BACKGROUND_IMAGE_HEIGHT)
                 .align(Alignment.TopStart),
-            painter = painter,
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(data = imageUrl)
+                .error(drawableResId = R.drawable.ic_placeholder)
+                .build(),
             contentDescription = stringResource(id = R.string.hero_image),
             contentScale = ContentScale.Crop
         )

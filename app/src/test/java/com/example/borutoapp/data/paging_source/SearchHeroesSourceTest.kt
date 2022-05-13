@@ -6,7 +6,7 @@ import com.example.borutoapp.data.remote.BorutoApi
 import com.example.borutoapp.data.remote.FakeBorutoApi
 import com.example.borutoapp.domain.model.Hero
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -66,7 +66,7 @@ class SearchHeroesSourceTest {
 
     @Test
     fun `Search api with existing hero name, expect single hero result, assert LoadResult_Page`() =
-        runBlockingTest {
+        runTest {
             val heroSource = SearchHeroesSource(borutoApi = borutoApi, query = "Sasuke")
             assertEquals<LoadResult<Int, Hero>>(
                 expected = LoadResult.Page(
@@ -86,7 +86,7 @@ class SearchHeroesSourceTest {
 
     @Test
     fun `Search api with existing hero name, expect multiple hero result, assert LoadResult_Page`() =
-        runBlockingTest {
+        runTest {
             val heroSource = SearchHeroesSource(borutoApi = borutoApi, query = "Sa")
             assertEquals<LoadResult<Int, Hero>>(
                 expected = LoadResult.Page(
@@ -106,7 +106,7 @@ class SearchHeroesSourceTest {
 
     @Test
     fun `Search api with empty hero name, assert empty heroes list and LoadResult_Page`() =
-        runBlockingTest {
+        runTest {
             val heroSource = SearchHeroesSource(borutoApi = borutoApi, query = "")
             val loadResult = heroSource.load(
                 LoadParams.Refresh(
@@ -124,7 +124,7 @@ class SearchHeroesSourceTest {
 
     @Test
     fun `Search api with non_existing hero name, assert empty heroes list and LoadResult_Page`() =
-        runBlockingTest {
+        runTest {
             val heroSource = SearchHeroesSource(borutoApi = borutoApi, query = "Unknown")
             val loadResult = heroSource.load(
                 LoadParams.Refresh(
