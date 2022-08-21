@@ -9,7 +9,6 @@ import com.example.borutoapp.data.local.BorutoDatabase
 import com.example.borutoapp.data.remote.BorutoApi
 import com.example.borutoapp.domain.model.Hero
 import com.example.borutoapp.domain.model.HeroRemoteKeys
-import javax.inject.Inject
 
 @ExperimentalPagingApi
 class HeroRemoteMediator(
