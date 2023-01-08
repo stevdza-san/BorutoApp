@@ -1,5 +1,6 @@
 package com.example.borutoapp.presentation.screens.home
 
+import android.annotation.SuppressLint
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -13,6 +14,7 @@ import com.example.borutoapp.presentation.common.ListContent
 import com.example.borutoapp.ui.theme.statusBarColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @ExperimentalCoilApi
 @Composable
 fun HomeScreen(
