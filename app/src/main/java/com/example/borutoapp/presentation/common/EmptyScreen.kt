@@ -7,10 +7,10 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.*
 import androidx.paging.LoadState
 import androidx.compose.ui.Alignment
@@ -28,8 +28,6 @@ import com.example.borutoapp.ui.theme.DarkGray
 import com.example.borutoapp.ui.theme.LightGray
 import com.example.borutoapp.ui.theme.NETWORK_ERROR_ICON_HEIGHT
 import com.example.borutoapp.ui.theme.SMALL_PADDING
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 
@@ -70,6 +68,7 @@ fun EmptyScreen(
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun EmptyContent(
     alphaAnim: Float,
@@ -79,19 +78,38 @@ fun EmptyContent(
     heroes: LazyPagingItems<Hero>? = null
 ) {
     var isRefreshing by remember { mutableStateOf(false) }
-
-    SwipeRefresh(
-        swipeEnabled = error != null,
-        state = rememberSwipeRefreshState(isRefreshing),
+    val refreshState = rememberPullRefreshState(
+        refreshing = isRefreshing,
         onRefresh = {
             isRefreshing = true
             heroes?.refresh()
             isRefreshing = false
         }
+    )
+
+//    SwipeRefresh(
+//        swipeEnabled = error != null,
+//        state = rememberSwipeRefreshState(isRefreshing),
+//        onRefresh = {
+//            isRefreshing = true
+//            heroes?.refresh()
+//            isRefreshing = false
+//        }
+//    ) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .pullRefresh(state = refreshState, enabled = error != null),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
     ) {
+        PullRefreshIndicator(
+            state = refreshState,
+            refreshing = isRefreshing
+        )
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .weight(1f)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
@@ -116,6 +134,7 @@ fun EmptyContent(
             )
         }
     }
+//    }
 }
 
 fun parseErrorMessage(error: LoadState.Error): String {
