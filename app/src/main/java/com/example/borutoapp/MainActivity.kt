@@ -14,7 +14,6 @@ import com.example.borutoapp.domain.use_cases.UseCases
 import com.example.borutoapp.navigation.Screen
 import com.example.borutoapp.navigation.SetupNavGraph
 import com.example.borutoapp.ui.theme.BorutoAppTheme
-import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +22,6 @@ import javax.inject.Inject
 @ExperimentalMaterialApi
 @ExperimentalCoilApi
 @ExperimentalAnimationApi
-@ExperimentalPagerApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 

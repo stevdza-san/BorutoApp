@@ -14,12 +14,10 @@ import com.example.borutoapp.presentation.screens.home.HomeScreen
 import com.example.borutoapp.presentation.screens.search.SearchScreen
 import com.example.borutoapp.presentation.screens.welcome.WelcomeScreen
 import com.example.borutoapp.util.Constants.DETAILS_ARGUMENT_KEY
-import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalMaterialApi
 @ExperimentalCoilApi
 @ExperimentalAnimationApi
-@ExperimentalPagerApi
 @Composable
 fun SetupNavGraph(navController: NavHostController, startDestination: String) {
     NavHost(

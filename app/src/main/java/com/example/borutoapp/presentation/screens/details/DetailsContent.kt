@@ -1,5 +1,6 @@
 package com.example.borutoapp.presentation.screens.details
 
+import android.annotation.SuppressLint
 import android.graphics.Color.parseColor
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
@@ -67,11 +68,9 @@ fun DetailsContent(
     val currentSheetFraction = scaffoldState.currentSheetFraction
 
     val radiusAnim by animateDpAsState(
-        targetValue =
-        if (currentSheetFraction == 1f)
-            EXTRA_LARGE_PADDING
-        else
-            EXPANDED_RADIUS_LEVEL
+        targetValue = if (currentSheetFraction == 1f) EXTRA_LARGE_PADDING
+        else EXPANDED_RADIUS_LEVEL,
+        label = "Radius Animation"
     )
 
     BottomSheetScaffold(
@@ -208,6 +207,7 @@ fun BottomSheetContent(
     }
 }
 
+@SuppressLint("Range")
 @ExperimentalCoilApi
 @Composable
 fun BackgroundContent(
@@ -257,7 +257,7 @@ fun BackgroundContent(
 @ExperimentalMaterialApi
 val BottomSheetScaffoldState.currentSheetFraction: Float
     get() {
-        val fraction = bottomSheetState.progress.fraction
+        val fraction = bottomSheetState.progress
         val targetValue = bottomSheetState.targetValue
         val currentValue = bottomSheetState.currentValue
 

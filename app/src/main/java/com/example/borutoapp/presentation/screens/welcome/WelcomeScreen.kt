@@ -2,9 +2,13 @@ package com.example.borutoapp.presentation.screens.welcome
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -23,13 +27,13 @@ import androidx.navigation.NavHostController
 import com.example.borutoapp.R
 import com.example.borutoapp.domain.model.OnBoardingPage
 import com.example.borutoapp.navigation.Screen
+import com.example.borutoapp.presentation.components.HorizontalPagerIndicator
 import com.example.borutoapp.ui.theme.*
 import com.example.borutoapp.util.Constants.LAST_ON_BOARDING_PAGE
 import com.example.borutoapp.util.Constants.ON_BOARDING_PAGE_COUNT
-import com.google.accompanist.pager.*
 
+@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalAnimationApi
-@ExperimentalPagerApi
 @Composable
 fun WelcomeScreen(
     navController: NavHostController,
@@ -41,7 +45,7 @@ fun WelcomeScreen(
         OnBoardingPage.Third
     )
 
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(pageCount = { ON_BOARDING_PAGE_COUNT })
 
     Column(
         modifier = Modifier
@@ -51,7 +55,6 @@ fun WelcomeScreen(
         HorizontalPager(
             modifier = Modifier.weight(10f),
             state = pagerState,
-            count = ON_BOARDING_PAGE_COUNT,
             verticalAlignment = Alignment.Top
         ) { position ->
             PagerScreen(onBoardingPage = pages[position])
@@ -61,6 +64,7 @@ fun WelcomeScreen(
                 .weight(1f)
                 .align(Alignment.CenterHorizontally),
             pagerState = pagerState,
+            pageCount = pagerState.pageCount,
             activeColor = MaterialTheme.colors.activeIndicatorColor,
             inactiveColor = MaterialTheme.colors.inactiveIndicatorColor,
             indicatorWidth = PAGING_INDICATOR_WIDTH,
@@ -115,8 +119,8 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalAnimationApi
-@ExperimentalPagerApi
 @Composable
 fun FinishButton(
     modifier: Modifier,
