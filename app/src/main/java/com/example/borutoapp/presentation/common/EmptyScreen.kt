@@ -40,7 +40,7 @@ fun EmptyScreen(
         mutableStateOf("Find your Favorite Hero!")
     }
     var icon by remember {
-        mutableStateOf(R.drawable.ic_search_document)
+        mutableIntStateOf(R.drawable.ic_search_document)
     }
 
     if (error != null) {
@@ -53,7 +53,8 @@ fun EmptyScreen(
         targetValue = if (startAnimation) ContentAlpha.disabled else 0f,
         animationSpec = tween(
             durationMillis = 1000
-        )
+        ),
+        label = "Alpha Animation"
     )
     LaunchedEffect(key1 = true) {
         startAnimation = true

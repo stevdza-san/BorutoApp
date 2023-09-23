@@ -109,11 +109,11 @@ dependencies {
 //    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
 //    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
 
-    // Swipe to Refresh - Accompanist
-    implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
+    // Swipe to Refresh - Accompanist [DEPRECATED]
+//    implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
 
-    // System UI Controller - Accompanist
-    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
+    // System UI Controller - Accompanist [DEPRECATED]
+//    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
 
     // Palette API
     implementation "androidx.palette:palette-ktx:1.0.0"

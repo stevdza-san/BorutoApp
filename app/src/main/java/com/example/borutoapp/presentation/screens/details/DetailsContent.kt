@@ -1,21 +1,45 @@
 package com.example.borutoapp.presentation.screens.details
 
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.graphics.Color.parseColor
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.material.BottomSheetScaffoldState
 import androidx.compose.material.BottomSheetValue.Collapsed
 import androidx.compose.material.BottomSheetValue.Expanded
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.runtime.*
+import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.material.rememberBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -30,11 +54,17 @@ import com.example.borutoapp.R
 import com.example.borutoapp.domain.model.Hero
 import com.example.borutoapp.presentation.components.InfoBox
 import com.example.borutoapp.presentation.components.OrderedList
-import com.example.borutoapp.ui.theme.*
+import com.example.borutoapp.ui.theme.EXPANDED_RADIUS_LEVEL
+import com.example.borutoapp.ui.theme.EXTRA_LARGE_PADDING
+import com.example.borutoapp.ui.theme.INFO_ICON_SIZE
+import com.example.borutoapp.ui.theme.LARGE_PADDING
+import com.example.borutoapp.ui.theme.MEDIUM_PADDING
+import com.example.borutoapp.ui.theme.MIN_SHEET_HEIGHT
+import com.example.borutoapp.ui.theme.SMALL_PADDING
+import com.example.borutoapp.ui.theme.titleColor
 import com.example.borutoapp.util.Constants.ABOUT_TEXT_MAX_LINES
 import com.example.borutoapp.util.Constants.BASE_URL
 import com.example.borutoapp.util.Constants.MIN_BACKGROUND_IMAGE_HEIGHT
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
@@ -44,6 +74,8 @@ fun DetailsContent(
     selectedHero: Hero?,
     colors: Map<String, String>
 ) {
+    val activity = LocalContext.current as Activity
+
     var vibrant by remember { mutableStateOf("#000000") }
     var darkVibrant by remember { mutableStateOf("#000000") }
     var onDarkVibrant by remember { mutableStateOf("#ffffff") }
@@ -54,11 +86,8 @@ fun DetailsContent(
         onDarkVibrant = colors["onDarkVibrant"]!!
     }
 
-    val systemUiController = rememberSystemUiController()
     SideEffect {
-        systemUiController.setStatusBarColor(
-            color = Color(parseColor(darkVibrant))
-        )
+        activity.window.statusBarColor = Color(parseColor(darkVibrant)).toArgb()
     }
 
     val scaffoldState = rememberBottomSheetScaffoldState(
@@ -207,7 +236,6 @@ fun BottomSheetContent(
     }
 }
 
-@SuppressLint("Range")
 @ExperimentalCoilApi
 @Composable
 fun BackgroundContent(
@@ -216,7 +244,7 @@ fun BackgroundContent(
     backgroundColor: Color = MaterialTheme.colors.surface,
     onCloseClicked: () -> Unit
 ) {
-    val imageUrl = "$BASE_URL${heroImage}"
+    val imageUrl = remember { "$BASE_URL${heroImage}" }
 
     Box(
         modifier = Modifier
@@ -226,8 +254,11 @@ fun BackgroundContent(
         AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(fraction = imageFraction + MIN_BACKGROUND_IMAGE_HEIGHT)
-                .align(Alignment.TopStart),
+                .fillMaxHeight(
+                    fraction = (imageFraction + MIN_BACKGROUND_IMAGE_HEIGHT)
+                        .coerceAtMost(1.0f)
+                )
+                .align(Alignment.TopCenter),
             model = ImageRequest.Builder(LocalContext.current)
                 .data(data = imageUrl)
                 .error(drawableResId = R.drawable.ic_placeholder)
