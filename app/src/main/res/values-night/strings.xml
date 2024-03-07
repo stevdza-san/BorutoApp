@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="network_error_icon">Network error icon</string>
+    <string name="close_icon">Close Icon</string>
+    <string name="power">Power</string>
+    <string name="month">Month</string>
+    <string name="birthday">Birthday</string>
+    <string name="about">About</string>
+    <string name="nature_types">Nature Types</string>
+    <string name="abilities">Abilities</string>
+    <string name="family">Family</string>
+    <string name="close">Close</string>
+</resources>
