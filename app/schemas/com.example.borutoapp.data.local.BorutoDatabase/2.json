@@ -1,0 +1,132 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "908c854236419276c651217195c40bdc",
+    "entities": [
+      {
+        "tableName": "hero_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`heroId` INTEGER NOT NULL, `heroAbilities` TEXT NOT NULL, `heroAbout` TEXT NOT NULL, `heroDay` TEXT NOT NULL, `heroFamily` TEXT NOT NULL, `heroImage` TEXT NOT NULL, `heroMonth` TEXT NOT NULL, `heroName` TEXT NOT NULL, `heroNatureTypes` TEXT NOT NULL, `heroPower` INTEGER NOT NULL, `heroRating` REAL NOT NULL, PRIMARY KEY(`heroId`))",
+        "fields": [
+          {
+            "fieldPath": "heroId",
+            "columnName": "heroId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heroAbilities",
+            "columnName": "heroAbilities",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heroAbout",
+            "columnName": "heroAbout",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heroDay",
+            "columnName": "heroDay",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heroFamily",
+            "columnName": "heroFamily",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heroImage",
+            "columnName": "heroImage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heroMonth",
+            "columnName": "heroMonth",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heroName",
+            "columnName": "heroName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heroNatureTypes",
+            "columnName": "heroNatureTypes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heroPower",
+            "columnName": "heroPower",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "heroRating",
+            "columnName": "heroRating",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "heroId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "hero_remote_keys_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `prevPage` INTEGER, `nextPage` INTEGER, `lastUpdated` INTEGER, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prevPage",
+            "columnName": "prevPage",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nextPage",
+            "columnName": "nextPage",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastUpdated",
+            "columnName": "lastUpdated",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '908c854236419276c651217195c40bdc')"
+    ]
+  }
+}
