@@ -175,10 +175,10 @@ fun EmptyStar(
 
 @Composable
 fun calculateStars(rating: Double): Map<String, Int> {
-    val maxStars by remember { mutableStateOf(5) }
-    var filledStars by remember { mutableStateOf(0) }
-    var halfFilledStars by remember { mutableStateOf(0) }
-    var emptyStars by remember { mutableStateOf(0) }
+    val maxStars by remember { mutableIntStateOf(5) }
+    var filledStars by remember { mutableIntStateOf(0) }
+    var halfFilledStars by remember { mutableIntStateOf(0) }
+    var emptyStars by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(key1 = rating) {
         val (firstNumber, lastNumber) = rating.toString()

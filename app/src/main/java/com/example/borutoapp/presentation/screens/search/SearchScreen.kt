@@ -1,12 +1,11 @@
 package com.example.borutoapp.presentation.screens.search
 
-import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -20,12 +19,12 @@ fun SearchScreen(
     navController: NavHostController,
     searchViewModel: SearchViewModel = hiltViewModel()
 ) {
-    val activity = LocalContext.current as Activity
+    val activity = LocalActivity.current
     val searchQuery by searchViewModel.searchQuery
     val heroes = searchViewModel.searchedHeroes.collectAsLazyPagingItems()
     val systemBarColor = statusBarColor.toArgb()
 
-    SideEffect { activity.window.statusBarColor = systemBarColor }
+    SideEffect { activity?.window?.statusBarColor = systemBarColor }
 
     Scaffold(
         topBar = {

@@ -1,7 +1,6 @@
 package com.example.borutoapp.presentation.screens.details
 
-import android.app.Activity
-import android.graphics.Color.parseColor
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -46,6 +45,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.graphics.toColorInt
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.AsyncImage
@@ -72,9 +72,9 @@ import com.example.borutoapp.util.Constants.MIN_BACKGROUND_IMAGE_HEIGHT
 fun DetailsContent(
     navController: NavHostController,
     selectedHero: Hero?,
-    colors: Map<String, String>
+    colors: Map<String, String>,
 ) {
-    val activity = LocalContext.current as Activity
+    val activity = LocalActivity.current
 
     var vibrant by remember { mutableStateOf("#000000") }
     var darkVibrant by remember { mutableStateOf("#000000") }
@@ -87,7 +87,7 @@ fun DetailsContent(
     }
 
     SideEffect {
-        activity.window.statusBarColor = Color(parseColor(darkVibrant)).toArgb()
+        activity?.window?.statusBarColor = Color(darkVibrant.toColorInt()).toArgb()
     }
 
     val scaffoldState = rememberBottomSheetScaffoldState(
@@ -107,16 +107,16 @@ fun DetailsContent(
             topStart = radiusAnim,
             topEnd = radiusAnim
         ),
-        containerColor = Color(parseColor(darkVibrant)),
+        containerColor = Color(darkVibrant.toColorInt()),
         sheetDragHandle = {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color(parseColor(darkVibrant))),
+                    .background(Color(darkVibrant.toColorInt())),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 BottomSheetDefaults.DragHandle(
-                    color = Color(parseColor(vibrant))
+                    color = Color(vibrant.toColorInt())
                 )
             }
         },
@@ -126,9 +126,9 @@ fun DetailsContent(
             selectedHero?.let {
                 BottomSheetContent(
                     selectedHero = it,
-                    infoBoxIconColor = Color(parseColor(vibrant)),
-                    sheetBackgroundColor = Color(parseColor(darkVibrant)),
-                    contentColor = Color(parseColor(onDarkVibrant))
+                    infoBoxIconColor = Color(vibrant.toColorInt()),
+                    sheetBackgroundColor = Color(darkVibrant.toColorInt()),
+                    contentColor = Color(onDarkVibrant.toColorInt())
                 )
             }
         },
@@ -137,7 +137,7 @@ fun DetailsContent(
                 BackgroundContent(
                     heroImage = hero.image,
                     imageFraction = currentSheetFraction,
-                    backgroundColor = Color(parseColor(darkVibrant)),
+                    backgroundColor = Color(darkVibrant.toColorInt()),
                     onCloseClicked = {
                         navController.popBackStack()
                     }
@@ -152,7 +152,7 @@ fun BottomSheetContent(
     selectedHero: Hero,
     infoBoxIconColor: Color = MaterialTheme.colorScheme.primary,
     sheetBackgroundColor: Color = MaterialTheme.colorScheme.surface,
-    contentColor: Color = titleColor
+    contentColor: Color = titleColor,
 ) {
     Column(
         modifier = Modifier
@@ -255,7 +255,7 @@ fun BackgroundContent(
     heroImage: String,
     imageFraction: Float = 1f,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
-    onCloseClicked: () -> Unit
+    onCloseClicked: () -> Unit,
 ) {
     val imageUrl = remember { "$BASE_URL${heroImage}" }
     val animatedImageSize by animateFloatAsState(
